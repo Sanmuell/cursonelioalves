@@ -1,4 +1,4 @@
-## cursonelioalves
+## Projeto - Curso de Spring Boot - Nélio Alves
 
 Tecnologias utilizadas
 Java
