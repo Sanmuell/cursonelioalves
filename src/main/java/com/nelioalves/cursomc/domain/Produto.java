@@ -3,7 +3,6 @@ package com.nelioalves.cursomc.domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -17,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable {
@@ -27,6 +27,7 @@ public class Produto implements Serializable {
 	private Long id;
 	private String nome;
 	private Double endereco;
+	
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = 
 	@JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name= "categoria_id")
@@ -34,9 +35,11 @@ public class Produto implements Serializable {
 	@JsonBackReference
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	@JsonIgnore // ignorar lista de itens associados a produto 
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
+	@JsonIgnore // ignorar lista de pedidos 
 	public List<Pedido> getPedidos(){
 		List<Pedido> lista = new ArrayList<>();
 		for(ItemPedido x : itens) {
