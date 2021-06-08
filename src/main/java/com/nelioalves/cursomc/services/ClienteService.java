@@ -13,12 +13,14 @@ import com.nelioalves.cursomc.repositories.ClienteRepository;
 public class ClienteService {
 
 	@Autowired
-	private ClienteRepository ClienteRepository;
+	private ClienteRepository clienteRepository;
 
 	public Cliente buscar(Long id) {
-		Optional<Cliente> obj = ClienteRepository.findById(id);
+		Optional<Cliente> obj = clienteRepository.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id:" + id + "Tipo:" + Cliente.class.getName()));
 	}
+	
+	
 
 }
