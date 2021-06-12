@@ -34,8 +34,8 @@ public class ClienteService {
 	}
 
 	public Cliente update(Cliente obj) {
-		Cliente newObj = find(obj.getId()); // instancia a partir do banco de dados 
-		updateData(newObj, obj);
+		Cliente newObj = find(obj.getId()); // instancia o objeto  a partir do banco de dados 
+		updateData(newObj, obj); // atualizo o objeto "newObj" com os dados do "obj"
 		return clienteRepository.save(newObj);
 	}
 

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.nelioalves.cursomc.domain.Categoria;
+import com.nelioalves.cursomc.domain.Cliente;
 import com.nelioalves.cursomc.dto.CategoriaDTO;
 import com.nelioalves.cursomc.exception.DataIntegrityException;
 import com.nelioalves.cursomc.exception.ObjectNotFoundException;
@@ -34,10 +35,16 @@ public class CategoriaService {
 	}
 
 	public Categoria update(Categoria obj) {
-		find(obj.getId()); // vai buscar o objeto no banco, caso não exista, já lança exceção
-		return categoriaRepository.save(obj);
+		Categoria newObj = find(obj.getId()); // instancia o objeto  a partir do banco de dados 
+		updateData(newObj, obj); // atualizo o objeto "newObj" com os dados do "obj"
+		return categoriaRepository.save(newObj);
 	}
 
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+	}
+	
+	
 	public void delete(Long id) {
 		find(id); // verificara antes se o id existe
 		try {
