@@ -21,7 +21,7 @@ import com.nelioalves.cursomc.domain.enums.TipoCliente;
 @Entity
 public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -30,31 +30,35 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 	private Integer tipo;
 	
-	//@JsonManagedReference
-	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL) 
+	@JsonIgnore
+	private String senha;
+
+	// @JsonManagedReference
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	// cascade all == se apagar os clientes, apaga os endereços
 	private List<Endereco> enderecos = new ArrayList<>();
-	
+
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
-	
-	//@JsonBackReference // pedidos de um cliente não serão serializados
+
+	// @JsonBackReference // pedidos de um cliente não serão serializados
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
-	
+
 	public Cliente() {
-		
+
 	}
 
-	public Cliente(Long id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+	public Cliente(Long id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = (tipo==null) ? null: tipo.getCod();
+		this.tipo = (tipo == null) ? null : tipo.getCod();
+		this.senha = senha;
 	}
 
 	public Long getId() {
@@ -119,6 +123,15 @@ public class Cliente implements Serializable {
 
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
+
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	@Override
@@ -146,9 +159,4 @@ public class Cliente implements Serializable {
 		return true;
 	}
 
-	
-	
-	
-	
-	
 }
