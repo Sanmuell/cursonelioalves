@@ -17,28 +17,21 @@ public class UserSS implements UserDetails {
 	private String email;
 	private String senha;
 	private Collection<? extends GrantedAuthority> authorities;
-	
+
 	public UserSS() {
-		
+
 	}
 
-	
-	
-	
+	// precisa-se dos construtores
 
-
-	public UserSS(Long id, String email, String senha, Set<Perfil> perfis)  {
+	public UserSS(Long id, String email, String senha, Set<Perfil> perfis) {
 		super();
 		this.id = id;
 		this.email = email;
 		this.senha = senha;
-		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao())).collect(Collectors.toList());
+		this.authorities = perfis.stream().map(x -> new SimpleGrantedAuthority(x.getDescricao()))
+				.collect(Collectors.toList());
 	}
-
-
-
-
-
 
 	public Long getId() {
 		return id;

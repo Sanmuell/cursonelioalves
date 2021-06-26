@@ -12,7 +12,6 @@ import com.nelioalves.cursomc.domain.Pedido;
 import com.nelioalves.cursomc.exception.ObjectNotFoundException;
 import com.nelioalves.cursomc.services.PedidoService;
 
-
 @RestController
 @RequestMapping(value = "/pedidos")
 public class PedidoResource {
